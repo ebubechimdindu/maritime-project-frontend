@@ -234,6 +234,7 @@ The primary purpose of this web application is to provide a centralized platform
 - WeatherData is linked to Incidents based on location and time.
 - ComplianceLogs track actions related to Incidents and Users.
 
+Name of Databas is Maritime
     Database Tables
 
      1. Users
