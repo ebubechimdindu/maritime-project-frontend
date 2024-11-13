@@ -1,17 +1,19 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "maritime";
+// Database configuration
+$host = 'localhost'; // or your database host
+$username = 'your_username'; // your database username
+$password = 'your_password'; // your database password
+$database = 'maritime'; // your database name
 
+// Create connection
+$conn = new mysqli($host, $username, $password, $database);
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
+// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+echo "Connected successfully";
 
-$conn->set_charset("utf8mb4");
-
-date_default_timezone_set('Asia/Singapore');
+// Close connection (optional, usually closed at the end of the script)
+// $conn->close();
 ?>
