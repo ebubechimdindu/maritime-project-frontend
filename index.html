@@ -49,7 +49,7 @@
             <i class="fa fa-ship me-2"></i>
             <h2 class="mb-2 text-white">NautiGuard</h2>
         </a>
-    
+
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -61,7 +61,8 @@
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
                 <a href="backend\userLogin.php" class="nav-item nav-link">Login</a>
             </div>
-            <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa fa-headphones text-primary me-3"></i>+012 345 6789</h4>
+            <h4 class="m-0 pe-lg-5 d-none d-lg-block"><i class="fa fa-headphones text-primary me-3"></i>+012 345 6789
+            </h4>
         </div>
     </nav>
     <!-- Navbar End -->
@@ -232,7 +233,10 @@
                         <h4 class="mb-3">Incident Reporting</h4>
                         <p>Comprehensive incident reporting system with real-time updates and detailed documentation.
                         </p>
-                        <a class="btn-slide mt-2" href=""><i class="fa fa-arrow-right"></i><span>Read More</span></a>
+                        <a class="btn-slide mt-2" href="#" data-bs-toggle="modal"
+                            data-bs-target="#incidentReportingModal">
+                            <i class="fa fa-arrow-right"></i><span>Read More</span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
@@ -243,7 +247,10 @@
                         </div>
                         <h4 class="mb-3">Emergency Response</h4>
                         <p>24/7 emergency response coordination with coast guard and maritime authorities.</p>
-                        <a class="btn-slide mt-2" href=""><i class="fa fa-arrow-right"></i><span>Read More</span></a>
+                        <a class="btn-slide mt-2" href="#" data-bs-toggle="modal"
+                            data-bs-target="#emergencyResponseModal">
+                            <i class="fa fa-arrow-right"></i><span>Read More</span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.7s">
@@ -254,7 +261,10 @@
                         </div>
                         <h4 class="mb-3">Vessel Tracking</h4>
                         <p>Real-time vessel monitoring and tracking system for enhanced maritime safety.</p>
-                        <a class="btn-slide mt-2" href=""><i class="fa fa-arrow-right"></i><span>Read More</span></a>
+                        <a class="btn-slide mt-2" href="#" data-bs-toggle="modal"
+                            data-bs-target="#vesselTrackingModal">
+                            <i class="fa fa-arrow-right"></i><span>Read More</span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
@@ -265,7 +275,10 @@
                         </div>
                         <h4 class="mb-3">Weather Monitoring</h4>
                         <p>Advanced weather forecasting and maritime condition monitoring services.</p>
-                        <a class="btn-slide mt-2" href=""><i class="fa fa-arrow-right"></i><span>Read More</span></a>
+                        <a class="btn-slide mt-2" href="#" data-bs-toggle="modal"
+                            data-bs-target="#weatherMonitoringModal">
+                            <i class="fa fa-arrow-right"></i><span>Read More</span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
@@ -276,7 +289,10 @@
                         </div>
                         <h4 class="mb-3">Compliance Management</h4>
                         <p>Maritime safety compliance tracking and regulatory requirement management.</p>
-                        <a class="btn-slide mt-2" href=""><i class="fa fa-arrow-right"></i><span>Read More</span></a>
+                        <a class="btn-slide mt-2" href="#" data-bs-toggle="modal"
+                            data-bs-target="#complianceManagementModal">
+                            <i class="fa fa-arrow-right"></i><span>Read More</span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.7s">
@@ -287,7 +303,10 @@
                         </div>
                         <h4 class="mb-3">Analytics & Reporting</h4>
                         <p>Detailed incident analytics and comprehensive reporting tools for stakeholders.</p>
-                        <a class="btn-slide mt-2" href=""><i class="fa fa-arrow-right"></i><span>Read More</span></a>
+                        <a class="btn-slide mt-2" href="#" data-bs-toggle="modal"
+                        data-bs-target="#analyticsReportingModal">
+                            <i class="fa fa-arrow-right"></i><span>Read More</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -296,6 +315,178 @@
     <!-- Service End -->
 
 
+
+  <!-- Service Modals -->
+<div class="modal fade" id="incidentReportingModal" tabindex="-1" aria-hidden="true">
+    <!-- Incident Reporting Modal -->
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Incident Reporting System</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img src="img/incident-reporting.jpg" alt="Incident Reporting" class="img-fluid mb-4">
+                <h4>Key Features:</h4>
+                <ul>
+                    <li>Real-time incident submission and tracking</li>
+                    <li>Automated notification system</li>
+                    <li>Detailed incident documentation</li>
+                    <li>Photo and file attachment capabilities</li>
+                    <li>GPS location tracking</li>
+                </ul>
+                <p>Our incident reporting system enables maritime personnel to quickly and efficiently report incidents through our user-friendly interface. The system automatically notifies relevant stakeholders and maintains a comprehensive audit trail.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="backend/userSignup.php" class="btn btn-primary">Get Started</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="emergencyResponseModal" tabindex="-1" aria-hidden="true">
+    <!-- Emergency Response Modal -->
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Emergency Response Coordination</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img src="img/emergency-response.jpg" alt="Emergency Response" class="img-fluid mb-4">
+                <h4>Key Features:</h4>
+                <ul>
+                    <li>24/7 Emergency Response Center</li>
+                    <li>Direct coordination with coast guard</li>
+                    <li>Rapid response team deployment</li>
+                    <li>Real-time communication system</li>
+                    <li>Emergency resource management</li>
+                </ul>
+                <p>Our emergency response system provides round-the-clock coordination between maritime vessels, coast guard, and emergency services. Quick response times and efficient resource allocation ensure optimal handling of critical situations.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="backend/userSignup.php" class="btn btn-primary">Get Started</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Vessel Tracking Modal -->
+<div class="modal fade" id="vesselTrackingModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Vessel Tracking System</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img src="img/vessel-tracking.jpg" alt="Vessel Tracking" class="img-fluid mb-4">
+                <h4>Key Features:</h4>
+                <ul>
+                    <li>Real-time vessel position tracking</li>
+                    <li>Route optimization</li>
+                    <li>Fleet management dashboard</li>
+                    <li>Historical tracking data</li>
+                    <li>Collision avoidance alerts</li>
+                </ul>
+                <p>Our advanced vessel tracking system provides real-time monitoring of maritime vessels, enabling efficient fleet management and enhanced safety measures through continuous position updates and automated alerts.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="backend/userSignup.php" class="btn btn-primary">Get Started</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Weather Monitoring Modal -->
+<div class="modal fade" id="weatherMonitoringModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Weather Monitoring System</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img src="img/weather-monitoring.jpg" alt="Weather Monitoring" class="img-fluid mb-4">
+                <h4>Key Features:</h4>
+                <ul>
+                    <li>Real-time weather updates</li>
+                    <li>Storm tracking and alerts</li>
+                    <li>Wave height monitoring</li>
+                    <li>Wind speed and direction analysis</li>
+                    <li>Weather forecast integration</li>
+                </ul>
+                <p>Stay ahead of maritime weather conditions with our comprehensive monitoring system. Receive accurate forecasts and real-time updates to ensure safe navigation and operational efficiency.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="backend/userSignup.php" class="btn btn-primary">Get Started</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Compliance Management Modal -->
+<div class="modal fade" id="complianceManagementModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Compliance Management System</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img src="img/compliance-management.jpg" alt="Compliance Management" class="img-fluid mb-4">
+                <h4>Key Features:</h4>
+                <ul>
+                    <li>Regulatory requirement tracking</li>
+                    <li>Automated compliance alerts</li>
+                    <li>Documentation management</li>
+                    <li>Audit trail maintenance</li>
+                    <li>Compliance reporting tools</li>
+                </ul>
+                <p>Streamline your maritime compliance processes with our comprehensive management system. Keep track of regulations, maintain documentation, and ensure adherence to maritime safety standards.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="backend/userSignup.php" class="btn btn-primary">Get Started</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Analytics & Reporting Modal -->
+<div class="modal fade" id="analyticsReportingModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Analytics & Reporting System</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img src="img/analytics-reporting.jpg" alt="Analytics & Reporting" class="img-fluid mb-4">
+                <h4>Key Features:</h4>
+                <ul>
+                    <li>Custom report generation</li>
+                    <li>Data visualization tools</li>
+                    <li>Trend analysis</li>
+                    <li>Performance metrics tracking</li>
+                    <li>Automated reporting schedules</li>
+                </ul>
+                <p>Transform your maritime data into actionable insights with our advanced analytics and reporting tools. Generate comprehensive reports, analyze trends, and make data-driven decisions for improved maritime operations.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="backend/userSignup.php" class="btn btn-primary">Get Started</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <!-- Service Modals end -->
 
     <!-- Feature Start -->
     <div class="container-fluid overflow-hidden py-5 px-lg-0">
@@ -370,7 +561,8 @@
                             <p><i class="fa fa-check text-success me-3"></i>Email Notifications</p>
                             <p><i class="fa fa-check text-success me-3"></i>Standard Analytics</p>
                             <p><i class="fa fa-check text-success me-3"></i>8/5 Support</p>
-                            <a class="btn-slide mt-2" href=""><i class="fa fa-arrow-right"></i><span>Subscribe
+                            <a class="btn-slide mt-2" href="backend\userSignup.php"><i
+                                    class="fa fa-arrow-right"></i><span>Subscribe
                                     Now</span></a>
                         </div>
                     </div>
@@ -391,7 +583,8 @@
                             <p><i class="fa fa-check text-success me-3"></i>SMS & Email Alerts</p>
                             <p><i class="fa fa-check text-success me-3"></i>Real-time Analytics</p>
                             <p><i class="fa fa-check text-success me-3"></i>24/7 Support</p>
-                            <a class="btn-slide mt-2" href=""><i class="fa fa-arrow-right"></i><span>Subscribe
+                            <a class="btn-slide mt-2" href="backend\userSignup.php"><i
+                                    class="fa fa-arrow-right"></i><span>Subscribe
                                     Now</span></a>
                         </div>
                     </div>
@@ -412,7 +605,8 @@
                             <p><i class="fa fa-check text-success me-3"></i>Multi-channel Alerts</p>
                             <p><i class="fa fa-check text-success me-3"></i>Predictive Analytics</p>
                             <p><i class="fa fa-check text-success me-3"></i>24/7 Priority Support</p>
-                            <a class="btn-slide mt-2" href=""><i class="fa fa-arrow-right"></i><span>Subscribe
+                            <a class="btn-slide mt-2" href="backend\userSignup.php"><i
+                                    class="fa fa-arrow-right"></i><span>Subscribe
                                     Now</span></a>
                         </div>
                     </div>
@@ -484,86 +678,90 @@
 
 
 
-   <!-- Team Start -->
-<div class="container-xxl py-5">
-    <div class="container py-5">
-        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h6 class="text-secondary text-uppercase">Leadership Team</h6>
-            <h1 class="mb-5">Maritime Safety Experts</h1>
-        </div>
-        <div class="row g-4">
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                <div class="team-item p-4">
-                    <div class="overflow-hidden mb-4">
-                        <img class="img-fluid" src="img/director.jpg" alt="Safety Director" style="width: 100%; height: 300px; object-fit: cover;">
-                    </div>
-                    <h5 class="mb-0">Capt. Hansi Flick</h5>
-                    <p>Safety Operations Director</p>
-                    <div class="btn-slide mt-1">
-                        <i class="fa fa-share"></i>
-                        <span>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-researchgate"></i></a>
-                        </span>
+    <!-- Team Start -->
+    <div class="container-xxl py-5">
+        <div class="container py-5">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="text-secondary text-uppercase">Leadership Team</h6>
+                <h1 class="mb-5">Maritime Safety Experts</h1>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="team-item p-4">
+                        <div class="overflow-hidden mb-4">
+                            <img class="img-fluid" src="img/director.jpg" alt="Safety Director"
+                                style="width: 100%; height: 300px; object-fit: cover;">
+                        </div>
+                        <h5 class="mb-0">Capt. Hansi Flick</h5>
+                        <p>Safety Operations Director</p>
+                        <div class="btn-slide mt-1">
+                            <i class="fa fa-share"></i>
+                            <span>
+                                <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                <a href=""><i class="fab fa-twitter"></i></a>
+                                <a href=""><i class="fab fa-researchgate"></i></a>
+                            </span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                <div class="team-item p-4">
-                    <div class="overflow-hidden mb-4">
-                        <img class="img-fluid" src="img/coordinator.jpg" alt="Emergency Coordinator" style="width: 100%; height: 300px; object-fit: cover;">
-                    </div>
-                    <h5 class="mb-0">Dr. Sarah Martinez</h5>
-                    <p>Emergency Response Coordinator</p>
-                    <div class="btn-slide mt-1">
-                        <i class="fa fa-share"></i>
-                        <span>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-researchgate"></i></a>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
-                <div class="team-item p-4">
-                    <div class="overflow-hidden mb-4">
-                        <img class="img-fluid" src="img/analyst.jpg" alt="Safety Analyst" style="width: 100%; height: 300px; object-fit: cover;">
-                    </div>
-                    <h5 class="mb-0">James Wilson</h5>
-                    <p>Maritime Safety Analyst</p>
-                    <div class="btn-slide mt-1">
-                        <i class="fa fa-share"></i>
-                        <span>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-researchgate"></i></a>
-                        </span>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="team-item p-4">
+                        <div class="overflow-hidden mb-4">
+                            <img class="img-fluid" src="img/coordinator.jpg" alt="Emergency Coordinator"
+                                style="width: 100%; height: 300px; object-fit: cover;">
+                        </div>
+                        <h5 class="mb-0">Dr. Sarah Martinez</h5>
+                        <p>Emergency Response Coordinator</p>
+                        <div class="btn-slide mt-1">
+                            <i class="fa fa-share"></i>
+                            <span>
+                                <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                <a href=""><i class="fab fa-twitter"></i></a>
+                                <a href=""><i class="fab fa-researchgate"></i></a>
+                            </span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
-                <div class="team-item p-4">
-                    <div class="overflow-hidden mb-4">
-                        <img class="img-fluid" src="img/tech-lead.jpg" alt="Technical Lead" style="width: 100%; height: 300px; object-fit: cover;">
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="team-item p-4">
+                        <div class="overflow-hidden mb-4">
+                            <img class="img-fluid" src="img/analyst.jpg" alt="Safety Analyst"
+                                style="width: 100%; height: 300px; object-fit: cover;">
+                        </div>
+                        <h5 class="mb-0">James Wilson</h5>
+                        <p>Maritime Safety Analyst</p>
+                        <div class="btn-slide mt-1">
+                            <i class="fa fa-share"></i>
+                            <span>
+                                <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                <a href=""><i class="fab fa-twitter"></i></a>
+                                <a href=""><i class="fab fa-researchgate"></i></a>
+                            </span>
+                        </div>
                     </div>
-                    <h5 class="mb-0">Veronica Fling</h5>
-                    <p>Technical Systems Lead</p>
-                    <div class="btn-slide mt-1">
-                        <i class="fa fa-share"></i>
-                        <span>
-                            <a href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a href=""><i class="fab fa-twitter"></i></a>
-                            <a href=""><i class="fab fa-researchgate"></i></a>
-                        </span>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
+                    <div class="team-item p-4">
+                        <div class="overflow-hidden mb-4">
+                            <img class="img-fluid" src="img/tech-lead.jpg" alt="Technical Lead"
+                                style="width: 100%; height: 300px; object-fit: cover;">
+                        </div>
+                        <h5 class="mb-0">Veronica Fling</h5>
+                        <p>Technical Systems Lead</p>
+                        <div class="btn-slide mt-1">
+                            <i class="fa fa-share"></i>
+                            <span>
+                                <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                <a href=""><i class="fab fa-twitter"></i></a>
+                                <a href=""><i class="fab fa-researchgate"></i></a>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Team End -->
+    <!-- Team End -->
 
     <!-- Testimonial Start -->
     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="../css/authstyle.css" rel="stylesheet">
 </head>
-
 <body>
     <a href="../index.html" class="btn back-btn">
         <i class="fas fa-arrow-left"></i> Back to Home
@@ -21,7 +19,7 @@
             <p class="text-muted">Login to your account</p>
         </div>
 
-        <form action="backend/login_process.php" method="POST">
+        <form action="login_process.php" method="POST">
             <div class="mb-3">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -32,7 +30,10 @@
             <div class="mb-3">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                    <span class="input-group-text" onclick="togglePassword()">
+                        <i class="fas fa-eye" id="togglePassword"></i>
+                    </span>
                 </div>
             </div>
 
@@ -56,6 +57,21 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function togglePassword() {
+            const password = document.getElementById('password');
+            const toggleIcon = document.getElementById('togglePassword');
+            
+            if (password.type === 'password') {
+                password.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                password.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </body>
-
 </html>

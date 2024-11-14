@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="../css/authstyle.css" rel="stylesheet">
 </head>
-
 <body>
     <a href="../index.html" class="btn back-btn">
         <i class="fas fa-arrow-left"></i> Back to Home
@@ -21,7 +19,7 @@
             <p class="text-muted">Create your account</p>
         </div>
 
-        <form action="backend/register_process.php" method="POST">
+        <form action="register_process.php" method="POST" onsubmit="return validatePasswords()">
             <div class="mb-3">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -46,24 +44,20 @@
             <div class="mb-3">
                 <div class="input-group">
                     <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                    <input type="password" class="form-control" name="password" placeholder="Password" required>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                    <span class="input-group-text" onclick="togglePassword('password', 'togglePassword1')">
+                        <i class="fas fa-eye" id="togglePassword1"></i>
+                    </span>
                 </div>
             </div>
 
             <div class="mb-3">
                 <div class="input-group">
-                    <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
-                    <select class="form-control" name="role" required>
-                        <option value="">Select Role</option>
-                        <option value="incident_coordinator">Incident Coordinator</option>
-                        <option value="safety_officer">Safety Officer</option>
-                        <option value="emergency_responder">Emergency Responder</option>
-                        <option value="vessel_operator">Vessel Operator</option>
-                        <option value="port_authority">Port Authority</option>
-                        <option value="security_analyst">Security Analyst</option>
-                        <option value="compliance_officer">Compliance Officer</option>
-                        <option value="risk_assessor">Risk Assessor</option>
-                    </select>
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required>
+                    <span class="input-group-text" onclick="togglePassword('confirm_password', 'togglePassword2')">
+                        <i class="fas fa-eye" id="togglePassword2"></i>
+                    </span>
                 </div>
             </div>
 
@@ -95,6 +89,32 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script>
+        function togglePassword(inputId, toggleId) {
+            const input = document.getElementById(inputId);
+            const toggleIcon = document.getElementById(toggleId);
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
 
+        function validatePasswords() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm_password').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
 </html>
