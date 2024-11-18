@@ -318,3 +318,30 @@
     padding: 4px 6px;
     font-size: 10px;
 }
+.weather-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.weather-icon {
+    color: #0d6efd;
+}
+
+.weather-details p {
+    margin-bottom: 0.5rem;
+}
+
+.temperature {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.wind i, .humidity i {
+    margin-right: 5px;
+}
+
+.condition {
+    color: #6c757d;
+    font-style: italic;
+}

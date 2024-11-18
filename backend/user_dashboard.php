@@ -99,16 +99,18 @@
                 <div class="card">
                     <h3>Weather Alerts</h3>
                     <div class="weather-alerts">
-                        <div class="alert-item warning">
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <span>Storm Warning: South Pacific Region</span>
-                        </div>
-                        <div class="alert-item info">
-                            <i class="fas fa-info-circle"></i>
-                            <span>High Waves: Mediterranean Sea</span>
-                        </div>
+                        <?php if (!empty($weather_alerts)): ?>
+                            <?php foreach ($weather_alerts as $alert): ?>
+                                <div class="alert-item info">
+                                    <i class="fas fa-cloud"></i>
+                                    <span><?php echo $alert['location']; ?>: <?php echo $alert['description']; ?>
+                                        (<?php echo $alert['temperature']; ?>°C, Wind: <?php echo $alert['wind_speed']; ?> m/s)</span>
+                                </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
+
 
                 <!-- Compliance Status Card -->
                 <div class="card">
@@ -165,6 +167,8 @@
         </div>
     </div>
 
+
+    <script src="../js/weather.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
