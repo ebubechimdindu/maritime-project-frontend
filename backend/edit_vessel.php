@@ -16,26 +16,39 @@ $result = $conn->query($sql);
 $vessel = $result->fetch_assoc();
 
 // Process form submission
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $vessel_name = $conn->real_escape_string($_POST['vessel_name']);
-    $imo_number = $conn->real_escape_string($_POST['imo_number']);
-    $vessel_type = $conn->real_escape_string($_POST['vessel_type']);
-    $flag_state = $conn->real_escape_string($_POST['flag_state']);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $vessel_id = $_POST['vessel_id'];
+    $vessel_name = $conn->real_escape_string($_POST['vessel_name'] ?? '');
+    $imo_number = $conn->real_escape_string($_POST['imo_number'] ?? '');
+    $vessel_type = $conn->real_escape_string($_POST['vessel_type'] ?? '');
+    $flag_state = $conn->real_escape_string($_POST['flag_state'] ?? '');
     $gross_tonnage = !empty($_POST['gross_tonnage']) ? $conn->real_escape_string($_POST['gross_tonnage']) : NULL;
     $year_built = !empty($_POST['year_built']) ? $conn->real_escape_string($_POST['year_built']) : NULL;
-    $classification_society = !empty($_POST['classification_society']) ? $conn->real_escape_string($_POST['classification_society']) : NULL;
-    $status = $conn->real_escape_string($_POST['status']);
+    $classification_society = $conn->real_escape_string($_POST['classification_society'] ?? '');
+    $status = $conn->real_escape_string($_POST['status'] ?? '');
+    $location = $conn->real_escape_string($_POST['location'] ?? '');
+    $departing_from = $conn->real_escape_string($_POST['departing_from'] ?? '');
+    $arriving_at = $conn->real_escape_string($_POST['arriving_at'] ?? '');
+    $departure_time = $conn->real_escape_string($_POST['departure_time'] ?? '');
+    $estimated_arrival = $conn->real_escape_string($_POST['estimated_arrival'] ?? '');
+
 
     $sql = "UPDATE vessels SET 
-            vessel_name = '$vessel_name',
-            imo_number = '$imo_number',
-            vessel_type = '$vessel_type',
-            flag_state = '$flag_state',
-            gross_tonnage = '$gross_tonnage',
-            year_built = '$year_built',
-            classification_society = '$classification_society',
-            status = '$status'
-            WHERE vessel_id = '$vessel_id' AND user_id = '$user_id'";
+    vessel_name = '$vessel_name',
+    imo_number = '$imo_number',
+    vessel_type = '$vessel_type',
+    flag_state = '$flag_state',
+    gross_tonnage = " . ($gross_tonnage ? "'$gross_tonnage'" : "NULL") . ",
+    year_built = " . ($year_built ? "'$year_built'" : "NULL") . ",
+    classification_society = '$classification_society',
+    status = '$status',
+    location = '$location',
+    departing_from = '$departing_from',
+    arriving_at = '$arriving_at',
+    departure_time = '$departure_time',
+    estimated_arrival = '$estimated_arrival'
+    WHERE vessel_id = '$vessel_id' AND user_id = '$user_id'";
+
 
     if ($conn->query($sql)) {
         $_SESSION['success_message'] = "Vessel updated successfully!";
@@ -47,8 +60,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/user_style.css">
 </head>
+
 <body>
     <div class="dashboard-container">
         <?php include 'includes/sidebar.php'; ?>
@@ -73,6 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="card">
                     <div class="card-body">
                         <form id="editVesselForm" method="POST">
+                            <input type="hidden" name="vessel_id" value="<?php echo $vessel['vessel_id']; ?>">
+
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="vessel_name" class="form-label">Vessel Name</label>
@@ -83,6 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <input type="text" class="form-control" id="imo_number" name="imo_number" value="<?php echo htmlspecialchars($vessel['imo_number']); ?>" required>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="vessel_type" class="form-label">Vessel Type</label>
@@ -99,6 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <input type="text" class="form-control" id="flag_state" name="flag_state" value="<?php echo htmlspecialchars($vessel['flag_state']); ?>" required>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="gross_tonnage" class="form-label">Gross Tonnage</label>
@@ -109,27 +129,62 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     <input type="number" class="form-control" id="year_built" name="year_built" value="<?php echo htmlspecialchars($vessel['year_built']); ?>">
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="location" class="form-label">Current Location</label>
+                                    <select class="form-select" id="location" name="location" required>
+                                        <option value="in_port" <?php echo $vessel['location'] == 'in_port' ? 'selected' : ''; ?>>In Port</option>
+                                        <option value="at_sea" <?php echo $vessel['location'] == 'at_sea' ? 'selected' : ''; ?>>At Sea</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="status" class="form-label">Status</label>
+                                    <select class="form-select" id="status" name="status" required>
+                                        <option value="active" <?php echo $vessel['status'] == 'active' ? 'selected' : ''; ?>>Active</option>
+                                        <option value="in_port" <?php echo $vessel['status'] == 'in_port' ? 'selected' : ''; ?>>In Port</option>
+                                        <option value="maintenance" <?php echo $vessel['status'] == 'maintenance' ? 'selected' : ''; ?>>Maintenance</option>
+                                        <option value="inactive" <?php echo $vessel['status'] == 'inactive' ? 'selected' : ''; ?>>Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="departing_from" class="form-label">Departing From</label>
+                                    <input type="text" class="form-control" id="departing_from" name="departing_from" value="<?php echo htmlspecialchars($vessel['departing_from'] ?? ''); ?>" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="arriving_at" class="form-label">Arriving At</label>
+                                    <input type="text" class="form-control" id="arriving_at" name="arriving_at" value="<?php echo htmlspecialchars($vessel['arriving_at'] ?? ''); ?>" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="departure_time" class="form-label">Departure Time</label>
+                                    <input type="datetime-local" class="form-control" id="departure_time" name="departure_time" value="<?php echo date('Y-m-d\TH:i', strtotime($vessel['departure_time'] ?? 'now')); ?>" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="estimated_arrival" class="form-label">Estimated Arrival Time</label>
+                                    <input type="datetime-local" class="form-control" id="estimated_arrival" name="estimated_arrival" value="<?php echo date('Y-m-d\TH:i', strtotime($vessel['estimated_arrival'] ?? 'now')); ?>" required>
+                                </div>
+                            </div>
+
                             <div class="mb-3">
                                 <label for="classification_society" class="form-label">Classification Society</label>
                                 <input type="text" class="form-control" id="classification_society" name="classification_society" value="<?php echo htmlspecialchars($vessel['classification_society']); ?>">
                             </div>
-                            <div class="mb-3">
-                                <label for="status" class="form-label">Status</label>
-                                <select class="form-select" id="status" name="status" required>
-                                    <option value="active" <?php echo $vessel['status'] == 'active' ? 'selected' : ''; ?>>Active</option>
-                                    <option value="in_port" <?php echo $vessel['status'] == 'in_port' ? 'selected' : ''; ?>>In Port</option>
-                                    <option value="maintenance" <?php echo $vessel['status'] == 'maintenance' ? 'selected' : ''; ?>>Maintenance</option>
-                                    <option value="inactive" <?php echo $vessel['status'] == 'inactive' ? 'selected' : ''; ?>>Inactive</option>
-                                </select>
-                            </div>
+
                             <div class="d-flex justify-content-between">
                                 <a href="vessel_management.php" class="btn btn-secondary">Back</a>
-                                <button type="button" class="btn btn-primary" onclick="confirmEdit()">Save Changes</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+
         </main>
     </div>
 
@@ -164,4 +219,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     </script>
 </body>
+
 </html>

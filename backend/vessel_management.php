@@ -129,9 +129,11 @@ $result = $conn->query($sql);
                                         <th>Vessel Name</th>
                                         <th>IMO Number</th>
                                         <th>Type</th>
-                                        <th>Flag State</th>
+                                        <th>Location</th>
+                                        <th>Departing From</th>
+                                        <th>Arriving At</th>
+                                        <th>ETA</th>
                                         <th>Status</th>
-                                        <th>Last Inspection</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -141,12 +143,21 @@ $result = $conn->query($sql);
                                             <td><?php echo htmlspecialchars($vessel['vessel_name']); ?></td>
                                             <td><?php echo htmlspecialchars($vessel['imo_number']); ?></td>
                                             <td><?php echo htmlspecialchars($vessel['vessel_type']); ?></td>
-                                            <td><?php echo htmlspecialchars($vessel['flag_state']); ?></td>
+                                            <td>
+                                                <span class="badge bg-<?php echo $vessel['location'] ? ($vessel['location'] == 'at_sea' ? 'primary' : 'success') : 'secondary'; ?>">
+                                                    <?php echo $vessel['location'] ? ucfirst(str_replace('_', ' ', $vessel['location'])) : 'Not Set'; ?>
+                                                </span>
+                                            </td>
+                                            <td><?php echo $vessel['departing_from'] ?? 'Not Set'; ?></td>
+                                            <td><?php echo $vessel['arriving_at'] ?? 'Not Set'; ?></td>
+                                            <td><?php echo $vessel['estimated_arrival'] ? date('Y-m-d H:i', strtotime($vessel['estimated_arrival'])) : 'Not Set'; ?></td>
+
                                             <td>
                                                 <span class="badge bg-<?php echo getStatusBadgeClass($vessel['status']); ?>">
                                                     <?php echo ucfirst(str_replace('_', ' ', $vessel['status'])); ?>
                                                 </span>
                                             </td>
+                                            <td>
                                             <td><?php echo $vessel['last_inspection_date']; ?></td>
                                             <td>
                                                 <button class="btn btn-sm btn-info" onclick="editVessel(<?php echo $vessel['vessel_id']; ?>)">
@@ -176,7 +187,7 @@ $result = $conn->query($sql);
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="vessel_management.php" method="POST" id="addVesselForm">
+                    <form action="vessel_process.php" method="POST" id="addVesselForm">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="vessel_name" class="form-label">Vessel Name</label>
@@ -214,31 +225,61 @@ $result = $conn->query($sql);
                                 <input type="number" class="form-control" id="year_built" name="year_built">
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="location" class="form-label">Current Location</label>
+                                <select class="form-select" id="location" name="location" required>
+                                    <option value="in_port">In Port</option>
+                                    <option value="at_sea">At Sea</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="form-select" id="status" name="status" required>
+                                    <option value="active">Active</option>
+                                    <option value="in_port">In Port</option>
+                                    <option value="maintenance">Maintenance</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="departing_from" class="form-label">Departing From</label>
+                                <input type="text" class="form-control" id="departing_from" name="departing_from" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="arriving_at" class="form-label">Arriving At</label>
+                                <input type="text" class="form-control" id="arriving_at" name="arriving_at" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="departure_time" class="form-label">Departure Time</label>
+                                <input type="datetime-local" class="form-control" id="departure_time" name="departure_time" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="estimated_arrival" class="form-label">Estimated Arrival Time</label>
+                                <input type="datetime-local" class="form-control" id="estimated_arrival" name="estimated_arrival" required>
+                            </div>
+                        </div>
                         <div class="mb-3">
                             <label for="classification_society" class="form-label">Classification Society</label>
                             <input type="text" class="form-control" id="classification_society" name="classification_society">
                         </div>
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="form-select" id="status" name="status" required>
-                                <option value="active">Active</option>
-                                <option value="in_port">In Port</option>
-                                <option value="maintenance">Maintenance</option>
-                                <option value="inactive">Inactive</option>
-                            </select>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Add Vessel</button>
-                        </div>
                     </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" form="addVesselForm" class="btn btn-primary">Add Vessel</button>
                 </div>
             </div>
         </div>
     </div>
 
-      <!-- Logout Modal with Modern UI -->
-      <div class="modal fade logout-modal-wrapper" id="logoutModal" tabindex="-1" aria-hidden="true">
+
+    <!-- Logout Modal with Modern UI -->
+    <div class="modal fade logout-modal-wrapper" id="logoutModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content modern-logout-modal">
                 <div class="modal-body">
