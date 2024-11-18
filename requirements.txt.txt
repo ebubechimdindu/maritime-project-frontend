@@ -419,3 +419,30 @@ Name of Databas is Maritime
 -   WCAG  : Web Content Accessibility Guidelines.
 
 user 1- jaymarine jaymarine12345
+
+Vessel Name: Pacific Voyager
+IMO Number: 9765432
+Vessel Type: Tanker
+Flag State: Singapore
+Gross Tonnage: 85000.00
+Year Built: 2020
+Classification Society: American Bureau of Shipping
+
+CREATE TABLE vessels (
+    vessel_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    vessel_name VARCHAR(100) NOT NULL,
+    imo_number VARCHAR(20) UNIQUE NOT NULL,
+    vessel_type VARCHAR(50) NOT NULL,
+    flag_state VARCHAR(50) NOT NULL,
+    gross_tonnage DECIMAL(10,2),
+    year_built INT,
+    classification_society VARCHAR(100),
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_inspection_date DATE,
+    status ENUM('active', 'in_port', 'maintenance', 'inactive') DEFAULT 'active',
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+vessels
+ALTER TABLE vessels 
+ADD COLUMN location ENUM('at_sea', 'in_port') DEFAULT NULL;
