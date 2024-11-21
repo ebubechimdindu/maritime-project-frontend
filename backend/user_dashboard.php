@@ -51,11 +51,18 @@
                 <div class="card">
                     <h3>Quick Actions</h3>
                     <div class="action-buttons">
-                        <button class="btn btn-danger"><i class="fas fa-exclamation-circle"></i> Report Emergency</button>
-                        <a href="vessel_management.php" class="btn btn-primary"><i class="fas fa-plus"></i> Register New Vessel</a>
-                        <button class="btn btn-info"><i class="fas fa-file-alt"></i> Generate Safety Report</button>
+                        <a href="incident_report.php?type=emergency" class="btn btn-danger">
+                            <i class="fas fa-exclamation-circle"></i> Report Emergency
+                        </a>
+                        <a href="vessel_management.php" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Register New Vessel
+                        </a>
+                        <a href="generate_safety_report.php" class="btn btn-info">
+                            <i class="fas fa-file-alt"></i> Generate Safety Report
+                        </a>
                     </div>
                 </div>
+
 
 
                 <!-- Active Incidents Card -->
@@ -119,13 +126,19 @@
                         <div class="progress-item">
                             <label>Safety Certifications</label>
                             <div class="progress">
-                                <div class="progress-bar bg-success" style="width: 92%">92%</div>
+                                <div class="progress-bar bg-<?php echo $safety_percentage >= 80 ? 'success' : ($safety_percentage >= 50 ? 'warning' : 'danger'); ?>"
+                                    style="width: <?php echo $safety_percentage; ?>%">
+                                    <?php echo $safety_percentage; ?>%
+                                </div>
                             </div>
                         </div>
                         <div class="progress-item">
                             <label>Documentation</label>
                             <div class="progress">
-                                <div class="progress-bar bg-warning" style="width: 85%">85%</div>
+                                <div class="progress-bar bg-<?php echo $documentation_percentage >= 80 ? 'success' : ($documentation_percentage >= 50 ? 'warning' : 'danger'); ?>"
+                                    style="width: <?php echo $documentation_percentage; ?>%">
+                                    <?php echo $documentation_percentage; ?>%
+                                </div>
                             </div>
                         </div>
                     </div>

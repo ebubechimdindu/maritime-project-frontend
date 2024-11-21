@@ -446,3 +446,40 @@ CREATE TABLE vessels (
 vessels
 ALTER TABLE vessels 
 ADD COLUMN location ENUM('at_sea', 'in_port') DEFAULT NULL;
+
+CREATE TABLE vessel_compliance (
+    compliance_id INT AUTO_INCREMENT PRIMARY KEY,
+    vessel_id INT,
+    user_id INT,
+    safety_equipment_check BOOLEAN DEFAULT FALSE,
+    navigation_systems_check BOOLEAN DEFAULT FALSE,
+    crew_certification_check BOOLEAN DEFAULT FALSE,
+    environmental_compliance BOOLEAN DEFAULT FALSE,
+    hull_integrity_check BOOLEAN DEFAULT FALSE,
+    firefighting_equipment BOOLEAN DEFAULT FALSE,
+    medical_supplies_check BOOLEAN DEFAULT FALSE,
+    radio_equipment_check BOOLEAN DEFAULT FALSE,
+    waste_management_check BOOLEAN DEFAULT FALSE,
+    security_systems_check BOOLEAN DEFAULT FALSE,
+    last_checked DATETIME,
+    next_check_due DATETIME,
+    FOREIGN KEY (vessel_id) REFERENCES vessels(vessel_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+CREATE TABLE incidents (
+    incident_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    vessel_id INT,
+    incident_type VARCHAR(100),
+    severity_level ENUM('low', 'medium', 'high', 'critical'),
+    location VARCHAR(255),
+    description TEXT,
+    date_time DATETIME,
+    status ENUM('reported', 'investigating', 'resolved', 'closed'),
+    attachments TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (vessel_id) REFERENCES vessels(vessel_id)
+);
+
