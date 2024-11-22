@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="../css/authstyle.css" rel="stylesheet">
 </head>
+
 <body>
     <a href="../index.html" class="btn back-btn">
         <i class="fas fa-arrow-left"></i> Back to Home
@@ -18,6 +20,22 @@
             <h2>Welcome to NautiGuard</h2>
             <p class="text-muted">Login to your account</p>
         </div>
+
+        <?php if (isset($_GET['error'])): ?>
+            <?php if ($_GET['error'] === 'disabled'): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Your account has been disabled. Please contact NautiGuard support for assistance.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php elseif ($_GET['error'] === 'invalid'): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Invalid username or password. Please try again.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
 
         <form action="login_process.php" method="POST">
             <div class="mb-3">
@@ -61,7 +79,7 @@
         function togglePassword() {
             const password = document.getElementById('password');
             const toggleIcon = document.getElementById('togglePassword');
-            
+
             if (password.type === 'password') {
                 password.type = 'text';
                 toggleIcon.classList.remove('fa-eye');
@@ -74,4 +92,5 @@
         }
     </script>
 </body>
+
 </html>

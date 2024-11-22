@@ -373,3 +373,44 @@
     font-size: 24px;
     color: #1e3c72;
 }
+
+/* User Management Styles */
+.user-details {
+    padding: 20px;
+}
+
+.user-details h4 {
+    color: #1e3c72;
+    margin-bottom: 20px;
+}
+
+.user-details h5 {
+    color: #2a5298;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.user-details ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.user-details ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.table-responsive {
+    margin-top: 20px;
+}
+
+#usersTable_wrapper .dataTables_filter input {
+    border: 1px solid #1e3c72;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 5px;
+}
