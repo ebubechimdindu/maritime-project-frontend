@@ -46,6 +46,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['success_message'] = "Vessel operations suspended";
         }
     }
+    if (isset($_POST['unsuspend_vessel'])) {
+        $vessel_id = $_POST['vessel_id'];
+        $sql = "UPDATE vessels SET status = 'active' WHERE vessel_id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $vessel_id);
+        if ($stmt->execute()) {
+            $_SESSION['success_message'] = "Vessel operations reactivated successfully";
+        }
+    }
 }
 
 // Fetch all vessels with user and compliance information
@@ -194,19 +203,18 @@ $result = $conn->query($sql);
                                             <a href="vessel_inspection.php?id=<?php echo $vessel['vessel_id']; ?>" class="btn btn-sm btn-primary">
                                                 <i class="fas fa-clipboard-check"></i>
                                             </a>
-                                            <?php if ($vessel['approval_status'] == 'pending'): ?>
-                                                <button class="btn btn-sm btn-success" onclick="approveVessel(<?php echo $vessel['vessel_id']; ?>)">
-                                                    <i class="fas fa-check"></i>
+                                            <?php if ($vessel['status'] == 'suspended'): ?>
+                                                <button class="btn btn-sm btn-success" onclick="unsuspendVessel(<?php echo $vessel['vessel_id']; ?>)">
+                                                    <i class="fas fa-play"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-danger" onclick="rejectVessel(<?php echo $vessel['vessel_id']; ?>)">
-                                                    <i class="fas fa-times"></i>
+                                            <?php else: ?>
+                                                <button class="btn btn-sm btn-warning" onclick="suspendVessel(<?php echo $vessel['vessel_id']; ?>)">
+                                                    <i class="fas fa-pause"></i>
                                                 </button>
                                             <?php endif; ?>
-                                            <button class="btn btn-sm btn-warning" onclick="suspendVessel(<?php echo $vessel['vessel_id']; ?>)">
-                                                <i class="fas fa-pause"></i>
-                                            </button>
                                         </div>
                                     </td>
+
 
                                 </tr>
                             <?php endwhile; ?>
@@ -216,87 +224,88 @@ $result = $conn->query($sql);
             </div>
         </div>
     </div>
-<!-- Vessel Details Modal -->
-<div class="modal fade" id="vesselDetailsModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title"><i class="fas fa-ship"></i> Vessel Details</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div id="vesselDetailsContent">
-                    <div class="vessel-details">
-                        <div class="vessel-header mb-4">
-                            <h4 class="vessel-name"></h4>
-                            <span class="badge status-badge"></span>
-                        </div>
+    <!-- Vessel Details Modal -->
+    <div class="modal fade" id="vesselDetailsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title"><i class="fas fa-ship"></i> Vessel Details</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="vesselDetailsContent">
+                        <div class="vessel-details">
+                            <div class="vessel-header mb-4">
+                                <h4 class="vessel-name"></h4>
+                                <span class="badge status-badge"></span>
+                            </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="info-section">
-                                    <h5 class="section-title">Basic Information</h5>
-                                    <div class="info-group">
-                                        <p><strong>IMO Number:</strong> <span class="imo-number"></span></p>
-                                        <p><strong>Vessel Type:</strong> <span class="vessel-type"></span></p>
-                                        <p><strong>Flag State:</strong> <span class="flag-state"></span></p>
-                                        <p><strong>Gross Tonnage:</strong> <span class="gross-tonnage"></span></p>
-                                        <p><strong>Year Built:</strong> <span class="year-built"></span></p>
-                                        <p><strong>Classification Society:</strong> <span class="classification-society"></span></p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="info-section">
+                                        <h5 class="section-title">Basic Information</h5>
+                                        <div class="info-group">
+                                            <p><strong>IMO Number:</strong> <span class="imo-number"></span></p>
+                                            <p><strong>Vessel Type:</strong> <span class="vessel-type"></span></p>
+                                            <p><strong>Flag State:</strong> <span class="flag-state"></span></p>
+                                            <p><strong>Gross Tonnage:</strong> <span class="gross-tonnage"></span></p>
+                                            <p><strong>Year Built:</strong> <span class="year-built"></span></p>
+                                            <p><strong>Classification Society:</strong> <span class="classification-society"></span></p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="info-section">
-                                    <h5 class="section-title">Registration & Inspection</h5>
-                                    <div class="info-group">
-                                        <p><strong>Registration Date:</strong> <span class="registration-date"></span></p>
-                                        <p><strong>Last Inspection:</strong> <span class="last-inspection"></span></p>
-                                        <p><strong>Inspection Rating:</strong> <span class="inspection-rating"></span></p>
-                                        <p><strong>Approval Status:</strong> <span class="approval-status"></span></p>
-                                        <p><strong>Approval Date:</strong> <span class="approval-date"></span></p>
-                                        <p><strong>Inspection Notes:</strong> <span class="inspection-notes"></span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-4">
-                            <div class="col-md-12">
-                                <div class="info-section">
-                                    <h5 class="section-title">Current Journey Information</h5>
-                                    <div class="info-group">
-                                        <div class="journey-status p-3 mb-3 bg-light rounded">
-                                            <p><strong>Current Location:</strong> <span class="current-location"></span></p>
-                                            <p><strong>Departing From:</strong> <span class="departing-from"></span></p>
-                                            <p><strong>Departure Time:</strong> <span class="departure-time"></span></p>
-                                            <p><strong>Arriving At:</strong> <span class="arriving-at"></span></p>
-                                            <p><strong>Estimated Arrival:</strong> <span class="estimated-arrival"></span></p>
+                                <div class="col-md-6">
+                                    <div class="info-section">
+                                        <h5 class="section-title">Registration & Inspection</h5>
+                                        <div class="info-group">
+                                            <p><strong>Registration Date:</strong> <span class="registration-date"></span></p>
+                                            <p><strong>Last Inspection:</strong> <span class="last-inspection"></span></p>
+                                            <p><strong>Inspection Rating:</strong> <span class="inspection-rating"></span></p>
+                                            <p><strong>Approval Status:</strong> <span class="approval-status"></span></p>
+                                            <p><strong>Approval Date:</strong> <span class="approval-date"></span></p>
+                                            <p><strong>Inspection Notes:</strong> <span class="inspection-notes"></span></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row mt-4">
-                            <div class="col-md-12">
-                                <div class="info-section">
-                                    <h5 class="section-title">Compliance Status</h5>
-                                    <div class="compliance-checks p-3 bg-light rounded">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <p><i class="fas fa-check-circle text-success"></i> Safety Equipment</p>
-                                                <p><i class="fas fa-check-circle text-success"></i> Navigation Systems</p>
-                                                <p><i class="fas fa-check-circle text-success"></i> Crew Certification</p>
-                                                <p><i class="fas fa-check-circle text-success"></i> Environmental Compliance</p>
-                                                <p><i class="fas fa-check-circle text-success"></i> Hull Integrity</p>
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <div class="info-section">
+                                        <h5 class="section-title">Current Journey Information</h5>
+                                        <div class="info-group">
+                                            <div class="journey-status p-3 mb-3 bg-light rounded">
+                                                <p><strong>Current Location:</strong> <span class="current-location"></span></p>
+                                                <p><strong>Departing From:</strong> <span class="departing-from"></span></p>
+                                                <p><strong>Departure Time:</strong> <span class="departure-time"></span></p>
+                                                <p><strong>Arriving At:</strong> <span class="arriving-at"></span></p>
+                                                <p><strong>Estimated Arrival:</strong> <span class="estimated-arrival"></span></p>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p><i class="fas fa-check-circle text-success"></i> Firefighting Equipment</p>
-                                                <p><i class="fas fa-check-circle text-success"></i> Medical Supplies</p>
-                                                <p><i class="fas fa-check-circle text-success"></i> Radio Equipment</p>
-                                                <p><i class="fas fa-check-circle text-success"></i> Waste Management</p>
-                                                <p><i class="fas fa-check-circle text-success"></i> Security Systems</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <div class="info-section">
+                                        <h5 class="section-title">Compliance Status</h5>
+                                        <div class="compliance-checks p-3 bg-light rounded">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p><i class="fas fa-check-circle text-success"></i> Safety Equipment</p>
+                                                    <p><i class="fas fa-check-circle text-success"></i> Navigation Systems</p>
+                                                    <p><i class="fas fa-check-circle text-success"></i> Crew Certification</p>
+                                                    <p><i class="fas fa-check-circle text-success"></i> Environmental Compliance</p>
+                                                    <p><i class="fas fa-check-circle text-success"></i> Hull Integrity</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><i class="fas fa-check-circle text-success"></i> Firefighting Equipment</p>
+                                                    <p><i class="fas fa-check-circle text-success"></i> Medical Supplies</p>
+                                                    <p><i class="fas fa-check-circle text-success"></i> Radio Equipment</p>
+                                                    <p><i class="fas fa-check-circle text-success"></i> Waste Management</p>
+                                                    <p><i class="fas fa-check-circle text-success"></i> Security Systems</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -305,16 +314,15 @@ $result = $conn->query($sql);
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="printVesselDetails()">
-                    <i class="fas fa-print"></i> Print Details
-                </button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="printVesselDetails()">
+                        <i class="fas fa-print"></i> Print Details
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
     <!-- Rejection Modal -->
@@ -414,6 +422,19 @@ $result = $conn->query($sql);
                 form.submit();
             }
         }
+        function unsuspendVessel(vesselId) {
+    if (confirm('Are you sure you want to reactivate this vessel\'s operations?')) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.innerHTML = `
+            <input type="hidden" name="vessel_id" value="${vesselId}">
+            <input type="hidden" name="unsuspend_vessel" value="1">
+        `;
+        document.body.append(form);
+        form.submit();
+    }
+}
+
     </script>
 </body>
 
