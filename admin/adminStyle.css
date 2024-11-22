@@ -100,6 +100,32 @@
 .admin-form-control[type="text"] {
     padding-right: 40px;
 }
+
+.password-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #1e3c72;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.password-toggle:hover {
+    color: #2a5298;
+}
+
+.admin-form-control[type="password"],
+.admin-form-control[type="text"] {
+    padding-right: 40px;
+}
+
 /* Sidebar Styles */
 .admin-sidebar {
     width: 280px;
