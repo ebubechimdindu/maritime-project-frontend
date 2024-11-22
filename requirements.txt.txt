@@ -483,3 +483,30 @@ CREATE TABLE incidents (
     FOREIGN KEY (vessel_id) REFERENCES vessels(vessel_id)
 );
 
+CREATE TABLE response_teams (
+    team_id INT AUTO_INCREMENT PRIMARY KEY,
+    team_name VARCHAR(100) NOT NULL,
+    team_type ENUM('fire_service', 'maritime_police', 'first_responders', 'environmental', 'medical') NOT NULL,
+    contact_info VARCHAR(255),
+    status ENUM('active', 'inactive') DEFAULT 'active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE incident_assignments (
+    assignment_id INT AUTO_INCREMENT PRIMARY KEY,
+    incident_id INT,
+    team_id INT,
+    assigned_at DATETIME,
+    status ENUM('assigned', 'responding', 'completed') DEFAULT 'assigned',
+    notes TEXT,
+    FOREIGN KEY (incident_id) REFERENCES incidents(incident_id),
+    FOREIGN KEY (team_id) REFERENCES response_teams(team_id)
+);
+
+-- Insert default response teams
+INSERT INTO response_teams (team_name, team_type) VALUES
+('Fire Service Team', 'fire_service'),
+('Maritime Police Unit', 'maritime_police'),
+('First Responders Team', 'first_responders'),
+('Environmental Response Team', 'environmental'),
+('Medical Emergency Team', 'medical');
