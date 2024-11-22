@@ -87,12 +87,6 @@
             <h4>Settings</h4>
             <ul>
                 <li>
-                    <a href="system_config.php">
-                        <i class="fas fa-cogs"></i>
-                        <span>System Configuration</span>
-                    </a>
-                </li>
-                <li>
                     <a href="manage_account.php">
                         <i class="fas fa-user-cog"></i>
                         <span>Manage Account</span>
