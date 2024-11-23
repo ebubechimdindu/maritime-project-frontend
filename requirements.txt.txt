@@ -510,3 +510,8 @@ INSERT INTO response_teams (team_name, team_type) VALUES
 ('First Responders Team', 'first_responders'),
 ('Environmental Response Team', 'environmental'),
 ('Medical Emergency Team', 'medical');
+
+
+npm install chart.js
+composer require dompdf/dompdf
+
